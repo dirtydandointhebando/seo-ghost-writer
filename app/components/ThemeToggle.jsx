@@ -1,7 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 
-const THEMES = ["light", "dark", "synthwave"];
+const OPTIONS = [
+  { value: "light", label: "Light" },
+  { value: "dark", label: "Dark" },
+  { value: "synthwave", label: "Synthwave" },
+];
 
 function applyTheme(t) {
   const el = document.documentElement;
@@ -10,30 +14,37 @@ function applyTheme(t) {
 }
 
 export default function ThemeToggle() {
+  // Default = light
   const [theme, setTheme] = useState("light");
 
+  // On mount, load saved theme if any; otherwise keep "light"
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem("theme");
-      if (saved) return setTheme(saved);
-    } catch {}
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    setTheme(prefersDark ? "dark" : "light");
+    let saved = null;
+    try { saved = localStorage.getItem("theme"); } catch {}
+    const next = OPTIONS.some(o => o.value === saved) ? saved : "light";
+    setTheme(next);
+    applyTheme(next);
   }, []);
 
-  useEffect(() => { applyTheme(theme); }, [theme]);
-
-  const next = () => setTheme(THEMES[(THEMES.indexOf(theme) + 1) % THEMES.length]);
-  const label = theme === "light" ? "Light" : theme === "dark" ? "Dark" : "Synthwave";
+  const onChange = (e) => {
+    const next = e.target.value;
+    setTheme(next);
+    applyTheme(next);
+  };
 
   return (
-    <button
-      onClick={next}
-      className="rounded-xl border px-3 py-2 text-sm"
-      aria-label={`Theme: ${label} (click to change)`}
-      title={`Theme: ${label} (click to change)`}
-    >
-      Theme: {label}
-    </button>
+    <label className="inline-flex items-center gap-2 rounded-xl border px-2 py-1 bg-white/80 backdrop-blur text-sm">
+      <span className="sr-only">Theme</span>
+      <select
+        value={theme}
+        onChange={onChange}
+        aria-label="Theme"
+        className="bg-transparent outline-none"
+      >
+        {OPTIONS.map(o => (
+          <option key={o.value} value={o.value}>{o.label}</option>
+        ))}
+      </select>
+    </label>
   );
 }
