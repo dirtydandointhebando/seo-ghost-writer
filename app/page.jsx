@@ -158,8 +158,7 @@ const topicsList = Array.isArray(data?.topics) ? data.topics : [];
               </button>
             ))}
           
-        <a href="/schema" className="rounded-xl border px-3 py-2">Schema</a>
-      </div>
+        </div>
 
           {activeTab === "audit" && (
             <div className="space-y-4">
