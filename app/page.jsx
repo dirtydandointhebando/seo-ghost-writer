@@ -150,10 +150,8 @@ const topicsList = Array.isArray(data?.topics) ? data.topics : [];
       {data && (
         <section className="card space-y-4">
           <div className="flex gap-2">
-            {["audit","topics","content"].map(t => (
+            {["audit","topics","content","schema"].map(t => (
               <button key={t}
-
-{tab === 'schema' && <SchemaPanel />}
                 onClick={() => setActiveTab(t)}
                 className={`tab ${activeTab===t ? "tab-active" : "tab-inactive"}`}>
                 {t[0].toUpperCase()+t.slice(1)}
