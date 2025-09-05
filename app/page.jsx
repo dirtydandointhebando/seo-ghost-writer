@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import ThemeToggle from "@/app/components/ThemeToggle";
 import SchemaPanel from "@/app/components/SchemaPanel";
 function intentLabel(i){const m={informational:"Info",comparison:"Comparison",local:"Local",cost:"Cost",transactional:"Transactional"};return m[i]||"Info"}
 function intentClass(i){switch(i){case "local":return "bg-blue-100 text-blue-800";case "comparison":return "bg-violet-100 text-violet-800";case "cost":return "bg-amber-100 text-amber-800";case "transactional":return "bg-emerald-100 text-emerald-800";default:return "bg-gray-100 text-gray-800"}}
@@ -138,7 +139,7 @@ const topicsList = Array.isArray(data?.topics) ? data.topics : [];
           <button
             onClick={runAudit}
             disabled={loading || !url}
-            className="rounded-xl bg-gray-900 text-white px-4 py-3 disabled:opacity-50"
+            className="rounded-xl btn-primary glow px-4 py-3 disabled:opacity-50"
           >
             {loading ? "Running..." : "Run Audit"}
           </button>
@@ -223,7 +224,7 @@ const topicsList = Array.isArray(data?.topics) ? data.topics : [];
                     <div className="flex gap-2">
                       <button
                         onClick={() => { setGenType("blog"); setGenTopic(t); setActiveTab("content"); }}
-                        className="rounded-lg bg-gray-900 text-white px-3 py-2 text-sm"
+                        className="rounded-lg btn-primary glow px-3 py-2 text-sm"
                       >
                         Generate Blog
                       </button>
@@ -271,7 +272,7 @@ const topicsList = Array.isArray(data?.topics) ? data.topics : [];
                   <button
                     onClick={generate}
                     disabled={genLoading || !genTopic}
-                    className="rounded-xl bg-gray-900 text-white px-4 py-3 disabled:opacity-50"
+                    className="rounded-xl btn-primary glow px-4 py-3 disabled:opacity-50"
                   >
                     {genLoading ? "Generating..." : `Generate ${genType === "blog" ? "Blog" : "Service Page"}`}
                   </button>
