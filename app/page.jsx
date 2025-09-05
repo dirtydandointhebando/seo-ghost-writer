@@ -30,6 +30,7 @@ export default function Home() {
   const [keywords, setKeywords] = useState("");
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState(null);
+const topicsList = Array.isArray(data?.topics) ? data.topics : [];
   const [activeTab, setActiveTab] = useState("audit");
   const [genType, setGenType] = useState("blog");
   const [genTopic, setGenTopic] = useState(null);
@@ -200,8 +201,11 @@ export default function Home() {
           {activeTab === "topics" && (
             <div className="space-y-4">
               <h2 className="font-semibold text-lg">Suggested Topics</h2>
-              <ul className="space-y-2">
-                {data.topics.map((t) => (
+              {topicsList.length === 0 ? (
+  <p className="text-sm text-gray-600">No topic suggestions found. Try broader keywords or a different seed.</p>
+) : (
+  <ul className="space-y-2">
+                {topicsList.map((t) => (
                   <li key={t.id} className="flex items-center justify-between rounded-xl border p-3 bg-white">
                     <div className="flex flex-col">
                       <span className="font-medium">{t.query}</span>
@@ -224,6 +228,7 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
+)}
             </div>
           )}
 

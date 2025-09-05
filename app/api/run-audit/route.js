@@ -20,7 +20,8 @@ export async function POST(req) {
     // try to read page title to enrich topics
     const $ = cheerio.load(html);
     const pageTitle = $("head > title").text().trim();
-    const topics = suggestTopicsFromKeywords(keywords, pageTitle);
+    let topics = await suggestTopicsFromKeywords(keywords, pageTitle);
+    if (!Array.isArray(topics)) topics = [];
 
     const report = {
       reportId: Math.random().toString(36).slice(2),
