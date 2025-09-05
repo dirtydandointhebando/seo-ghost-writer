@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import CopyButton from "@/app/components/CopyButton";
 import { buildRecommendations as buildRecs } from "@/lib/recommendations";
 
 // Build a flexible list of SEO recs from the audit
