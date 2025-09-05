@@ -1,6 +1,9 @@
 "use client";
 
 import { useState } from "react";
+
+function intentLabel(i){const m={informational:"Info",comparison:"Comparison",local:"Local",cost:"Cost",transactional:"Transactional"};return m[i]||"Info"}
+function intentClass(i){switch(i){case "local":return "bg-blue-100 text-blue-800";case "comparison":return "bg-violet-100 text-violet-800";case "cost":return "bg-amber-100 text-amber-800";case "transactional":return "bg-emerald-100 text-emerald-800";default:return "bg-gray-100 text-gray-800"}}
 import { buildRecommendations as buildRecs } from "@/lib/recommendations";
 
 // Build a flexible list of SEO recs from the audit
@@ -212,7 +215,7 @@ const topicsList = Array.isArray(data?.topics) ? data.topics : [];
                 {topicsList.map((t) => (
                   <li key={t.id} className="flex items-center justify-between rounded-xl border p-3 bg-white">
                     <div className="flex flex-col">
-                      <span className="font-medium">{t.query}</span>
+                      <span className="font-medium"><span className="mr-2">{t.query}</span><span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${intentClass(t.intent)}`}>{intentLabel(t.intent)}</span></span>
                       <span className="text-xs text-gray-500">source: {t.source}</span>
                     </div>
                     <div className="flex gap-2">
