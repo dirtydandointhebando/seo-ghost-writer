@@ -30,3 +30,16 @@
 textarea.codegen {
   @apply w-full min-h-[320px] rounded-xl border p-4;
 }
+
+/* --- UX polish: subtle press + focus ring for all buttons --- */
+@layer base {
+  button {
+    @apply transition-transform duration-75 active:scale-95;
+  }
+  button:focus-visible {
+    @apply outline-none ring-2 ring-neutral-300;
+  }
+  button:disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+}

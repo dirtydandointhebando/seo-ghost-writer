@@ -32,6 +32,8 @@ export default function Home() {
   const [about, setAbout] = useState("");
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState(null);
+const [copied, setCopied] = useState(false);
+async function handleCopyFrom(id){ try{ const el=document.getElementById(id); const text=el?el.innerText:""; await navigator.clipboard.writeText(text); setCopied(true); setTimeout(()=>setCopied(false),1500);}catch(e){console.error(e);} }
 const topicsList = Array.isArray(data?.topics) ? data.topics : [];
   const [activeTab, setActiveTab] = useState("audit");
   const [genType, setGenType] = useState("blog");
