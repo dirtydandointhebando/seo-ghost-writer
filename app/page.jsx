@@ -245,7 +245,12 @@ const topicsList = Array.isArray(data?.topics) ? data.topics : [];
             <div className="space-y-4">
               <h2 className="font-semibold text-lg">Content Generator</h2>
               {!genTopic && <p className="text-sm text-gray-600">Pick a topic in the Topics tab to start.</p>}
-{activeTab === 'schema' && <SchemaPanel />}
+{activeTab === 'schema' && (
+  <div className="rounded-2xl border p-4 mt-4">
+    <h2 className="text-lg font-semibold mb-3">Schema Generator</h2>
+    <SchemaPanel />
+  </div>
+)}
               {genTopic && (
                 <div className="space-y-3">
                   <div className="grid md:grid-cols-4 gap-3">
