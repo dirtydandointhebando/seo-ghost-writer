@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import SchemaPanel from "@/app/components/SchemaPanel";
 function intentLabel(i){const m={informational:"Info",comparison:"Comparison",local:"Local",cost:"Cost",transactional:"Transactional"};return m[i]||"Info"}
 function intentClass(i){switch(i){case "local":return "bg-blue-100 text-blue-800";case "comparison":return "bg-violet-100 text-violet-800";case "cost":return "bg-amber-100 text-amber-800";case "transactional":return "bg-emerald-100 text-emerald-800";default:return "bg-gray-100 text-gray-800"}}
 import { buildRecommendations as buildRecs } from "@/lib/recommendations";
@@ -151,6 +152,8 @@ const topicsList = Array.isArray(data?.topics) ? data.topics : [];
           <div className="flex gap-2">
             {["audit","topics","content"].map(t => (
               <button key={t}
+
+{tab === 'schema' && <SchemaPanel />}
                 onClick={() => setActiveTab(t)}
                 className={`tab ${activeTab===t ? "tab-active" : "tab-inactive"}`}>
                 {t[0].toUpperCase()+t.slice(1)}
