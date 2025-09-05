@@ -1,3 +1,4 @@
+import "./globals.css";
 export const metadata = {
   title: "SEO Content Planner – MVP",
   description: "Audit pages, get topic ideas, and draft content.",
