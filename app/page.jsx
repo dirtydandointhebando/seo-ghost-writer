@@ -28,6 +28,7 @@ function buildRecommendations(audit) {
 export default function Home() {
   const [url, setUrl] = useState("");
   const [keywords, setKeywords] = useState("");
+  const [about, setAbout] = useState("");
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState(null);
 const topicsList = Array.isArray(data?.topics) ? data.topics : [];
@@ -87,6 +88,7 @@ const topicsList = Array.isArray(data?.topics) ? data.topics : [];
           wordCount: Number(genLength),
           cta,
           interlink,
+          about
         }),
       });
       const json = await res.json();
@@ -134,6 +136,7 @@ const topicsList = Array.isArray(data?.topics) ? data.topics : [];
             {loading ? "Running..." : "Run Audit"}
           </button>
         </div>
+        <textarea className="rounded-xl border p-3 w-full" rows="3" placeholder="About us / unique value (optional). E.g., niche expertise, service area, certifications, guarantees." value={about} onChange={e=>setAbout(e.target.value)} />
         {error && <p className="text-red-600 text-sm">{error}</p>}
       </section>
 
@@ -258,6 +261,7 @@ const topicsList = Array.isArray(data?.topics) ? data.topics : [];
                   </div>
                   <input className="rounded-xl border p-3 w-full" placeholder="Interlink target URL (optional)"
                     value={interlink} onChange={e=>setInterlink(e.target.value)} />
+                  {!about && (<textarea className="rounded-xl border p-3 w-full" rows="3" placeholder="About us / unique value (optional)" value={about} onChange={e=>setAbout(e.target.value)} />)}
                   <button
                     onClick={generate}
                     disabled={genLoading || !genTopic}

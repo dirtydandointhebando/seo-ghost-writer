@@ -10,6 +10,8 @@ const Body = z.object({
   wordCount: z.number().min(300).max(2000).default(800),
   cta: z.string().default("Contact us"),
   interlink: z.string().optional()
+,
+  about: z.string().max(1200).optional()
 });
 
 function fallbackTemplate({ topic, type, tone, wordCount, cta, interlink }) {
@@ -46,7 +48,9 @@ Compliance:
   const user = `
 Write a ${args.type} draft about: "${args.topic}".
 Target length: ~${args.wordCount} words. Tone: ${args.tone}. CTA: ${args.cta}.
-Interlink (optional): ${args.interlink || "none"}.
+Interlink (optional): .
+Brand context: .
+Use this to add a short "Our approach" paragraph and calibrate tone.
 ${hintsText}
 Return **markdown** with a single H1 title, clear H2/H3 sections, an FAQ, one natural internal link if applicable, and the CTA as a final section.`;
 
