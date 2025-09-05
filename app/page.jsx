@@ -156,7 +156,9 @@ const topicsList = Array.isArray(data?.topics) ? data.topics : [];
                 {t[0].toUpperCase()+t.slice(1)}
               </button>
             ))}
-          </div>
+          
+        <a href="/schema" className="rounded-xl border px-3 py-2">Schema</a>
+      </div>
 
           {activeTab === "audit" && (
             <div className="space-y-4">
