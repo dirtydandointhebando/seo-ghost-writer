@@ -295,7 +295,7 @@ const topicsList = Array.isArray(data?.topics) ? data.topics : [];
 {activeTab === "schema" && (
   <div className="rounded-2xl border p-4 mt-4">
     <h2 className="text-lg font-semibold mb-3">Schema Generator</h2>
-    <SchemaInline />
+    <SchemaPanel initialUrl={url} seedKeywords={keywords} about={about} audit={data?.audit} />
   </div>
 )}
 
@@ -304,7 +304,7 @@ const topicsList = Array.isArray(data?.topics) ? data.topics : [];
 {activeTab === "schema" && (
   <div className="rounded-2xl border p-4 mt-4">
     <h2 className="text-lg font-semibold mb-3">Schema Generator</h2>
-    <SchemaInline />
+    <SchemaPanel initialUrl={url} seedKeywords={keywords} about={about} audit={data?.audit} />
   </div>
 )}
 </section>
@@ -320,139 +320,3 @@ const topicsList = Array.isArray(data?.topics) ? data.topics : [];
     return t === 'schema' ? <div className="mt-6"><SchemaPanel /></div> : null;
   } catch { return null; }
 })()}
-
-// --- inline Schema generator (kept tiny on purpose)
-function SchemaInline() {
-  const [mode, setMode] = useState("business");
-  const [out, setOut] = useState("");
-
-  // shared
-  const [url, setUrl] = useState("");
-
-  // business
-  const [bizType, setBizType] = useState("LocalBusiness");
-  const [name, setName] = useState("");
-  const [telephone, setTelephone] = useState("");
-  const [street, setStreet] = useState("");
-  const [city, setCity] = useState("");
-  const [region, setRegion] = useState("");
-  const [postal, setPostal] = useState("");
-  const [country, setCountry] = useState("");
-  const [hours, setHours] = useState("Mo-Fr 09:00-17:00");
-  const [sameAs, setSameAs] = useState("");
-
-  // faq
-  const [faqText, setFaqText] = useState("Q: Example?\nA: Example.");
-
-  // article
-  const [headline, setHeadline] = useState("");
-  const [author, setAuthor] = useState("");
-
-  const csv = (s) => (s || "").split(/\s*,\s*/).filter(Boolean);
-
-  function generate() {
-    let jsonld;
-
-    if (mode === "faq") {
-      const items = (faqText || "")
-        .split(/\n{2,}/)
-        .map((block) => {
-          const [first, ...rest] = block.trim().split(/\n/);
-          const q = (first || "").replace(/^Q:\s*/i, "").trim();
-          const a = (rest.join(" ") || "").replace(/^A:\s*/i, "").trim();
-          return q && a
-            ? { "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } }
-            : null;
-        })
-        .filter(Boolean);
-      jsonld = { "@context": "https://schema.org", "@type": "FAQPage", ...(url ? { url } : {}), mainEntity: items };
-    } else if (mode === "article") {
-      const now = new Date().toISOString();
-      jsonld = {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        ...(url ? { url } : {}),
-        ...(headline ? { headline } : {}),
-        ...(author ? { author: { "@type": "Person", name: author } } : {}),
-        datePublished: now,
-        dateModified: now,
-      };
-    } else {
-      jsonld = {
-        "@context": "https://schema.org",
-        "@type": bizType || "LocalBusiness",
-        ...(name ? { name } : {}),
-        ...(url ? { url } : {}),
-        ...(telephone ? { telephone } : {}),
-        address: {
-          "@type": "PostalAddress",
-          ...(street ? { streetAddress: street } : {}),
-          ...(city ? { addressLocality: city } : {}),
-          ...(region ? { addressRegion: region } : {}),
-          ...(postal ? { postalCode: postal } : {}),
-          ...(country ? { addressCountry: country } : {}),
-        },
-        ...(hours ? { openingHours: hours } : {}),
-        ...(sameAs ? { sameAs: csv(sameAs) } : {}),
-      };
-    }
-
-    setOut(`<script type="application/ld+json">\n${JSON.stringify(jsonld, null, 2)}\n</script>`);
-  }
-
-  return (
-    <div className="space-y-6">
-      <div className="flex gap-2">
-        <button onClick={() => setMode("business")} className={`rounded-xl px-3 py-2 ${mode==="business"?"bg-neutral-900 text-white":"border"}`}>Business</button>
-        <button onClick={() => setMode("faq")} className={`rounded-xl px-3 py-2 ${mode==="faq"?"bg-neutral-900 text-white":"border"}`}>FAQ</button>
-        <button onClick={() => setMode("article")} className={`rounded-xl px-3 py-2 ${mode==="article"?"bg-neutral-900 text-white":"border"}`}>Article</button>
-      </div>
-
-      <div className="grid gap-3">
-        <label className="text-sm text-gray-700">Page URL (optional)</label>
-        <input className="rounded-xl border p-2" placeholder="https://example.com/page" value={url} onChange={e=>setUrl(e.target.value)} />
-      </div>
-
-      {mode==="business" && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <select className="rounded-xl border p-2" value={bizType} onChange={e=>setBizType(e.target.value)}>
-            {["LocalBusiness","ProfessionalService","LegalService","HomeAndConstructionBusiness","MedicalBusiness","Store","Restaurant"].map(t => <option key={t} value={t}>{t}</option>)}
-          </select>
-          <input className="rounded-xl border p-2" placeholder="Business Name" value={name} onChange={e=>setName(e.target.value)} />
-          <input className="rounded-xl border p-2" placeholder="Phone (+1-555-555-5555)" value={telephone} onChange={e=>setTelephone(e.target.value)} />
-          <input className="rounded-xl border p-2 md:col-span-2" placeholder="Street" value={street} onChange={e=>setStreet(e.target.value)} />
-          <input className="rounded-xl border p-2" placeholder="City" value={city} onChange={e=>setCity(e.target.value)} />
-          <input className="rounded-xl border p-2" placeholder="Region/State" value={region} onChange={e=>setRegion(e.target.value)} />
-          <input className="rounded-xl border p-2" placeholder="Postal Code" value={postal} onChange={e=>setPostal(e.target.value)} />
-          <input className="rounded-xl border p-2" placeholder="Country (US, CA…)" value={country} onChange={e=>setCountry(e.target.value)} />
-          <input className="rounded-xl border p-2 md:col-span-2" placeholder="Hours (e.g., Mo-Fr 09:00-17:00)" value={hours} onChange={e=>setHours(e.target.value)} />
-          <input className="rounded-xl border p-2 md:col-span-2" placeholder="SameAs URLs (comma-separated)" value={sameAs} onChange={e=>setSameAs(e.target.value)} />
-        </div>
-      )}
-
-      {mode==="faq" && (
-        <div className="grid gap-3">
-          <label className="text-sm text-gray-700">Q & A (blank line between pairs)</label>
-          <textarea className="rounded-xl border p-3" rows={7} value={faqText} onChange={e=>setFaqText(e.target.value)} />
-        </div>
-      )}
-
-      {mode==="article" && (
-        <div className="grid gap-3">
-          <input className="rounded-xl border p-2" placeholder="Headline" value={headline} onChange={e=>setHeadline(e.target.value)} />
-          <input className="rounded-xl border p-2" placeholder="Author" value={author} onChange={e=>setAuthor(e.target.value)} />
-        </div>
-      )}
-
-      <div className="flex gap-3">
-        <button onClick={generate} className="rounded-xl border px-4 py-2">Generate Schema</button>
-        {out && <button onClick={()=>navigator.clipboard.writeText(out).catch(()=>{})}
-
-className="rounded-xl border px-4 py-2">Copy</button>}
-      </div>
-
-      {out && <pre className="rounded-xl border p-3 overflow-auto text-sm whitespace-pre-wrap">{out}</pre>}
-    </div>
-  );
-}
-// --- end inline Schema generator
