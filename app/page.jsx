@@ -248,17 +248,7 @@ const topicsList = Array.isArray(data?.topics) ? data.topics : [];
 {genTopic && (
                 <div className="space-y-3">
                   <div className="grid md:grid-cols-4 gap-3">
-                    <select className="rounded-xl border p-3" value={genType} onChange={e=>setGenType(e.target.value)}
-
-
-{/* SCHEMA PANE */}
-{activeTab === "schema" && (
-  <div className="rounded-2xl border p-4 mt-4">
-    <h2 className="text-lg font-semibold mb-3">Schema Generator</h2>
-    <SchemaInline />
-  </div>
-)}
->
+                    <select className="rounded-xl border p-3" value={genType} onChange={e=>setGenType(e.target.value)}>
                       <option value="blog">Blog</option>
                       <option value="service">Service Page</option>
                     </select>
@@ -301,6 +291,14 @@ const topicsList = Array.isArray(data?.topics) ? data.topics : [];
               )}
             </div>
           )}
+{/* SCHEMA PANE (final) */}
+{activeTab === "schema" && (
+  <div className="rounded-2xl border p-4 mt-4">
+    <h2 className="text-lg font-semibold mb-3">Schema Generator</h2>
+    <SchemaInline />
+  </div>
+)}
+
         </section>
       )}
     </div>
