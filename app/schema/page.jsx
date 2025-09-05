@@ -64,7 +64,7 @@ export default function SchemaPage(){
         <a href="/" className="rounded-xl border px-3 py-2">Audit</a>
         <a href="/" className="rounded-xl border px-3 py-2">Topics</a>
         <a href="/" className="rounded-xl border px-3 py-2">Content</a>
-        <button className="rounded-xl px-3 py-2 bg-neutral-900 text-white">Schema</button>
+        <button className="rounded-xl border px-3 py-2 bg-neutral-900 text-white">Schema</button>
       </div>
 
       <h1 className="text-2xl font-semibold">Schema Generator</h1>
