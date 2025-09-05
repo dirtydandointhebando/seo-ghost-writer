@@ -14,8 +14,8 @@ export async function POST(req) {
     const body = await req.json();
     const { url, keywords = [] } = Body.parse(body);
 
-    const html = await fetchHtml(url);
-    const audit = runBasicAudit(html, url);
+    const { html, status, headers, finalUrl } = await fetchHtml(url);
+    const audit = await runBasicAudit(html, url, { status, headers, finalUrl });
 
     // try to read page title to enrich topics
     const $ = cheerio.load(html);
