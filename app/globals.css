@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --radius: 12px;
+}
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.card {
+  @apply bg-white rounded-2xl shadow p-5;
+}
+.badge {
+  @apply inline-flex items-center gap-2 rounded-full px-3 py-1 text-sm;
+}
+.badge-ok { @apply bg-green-100 text-green-800; }
+.badge-warn { @apply bg-yellow-100 text-yellow-800; }
+.badge-err { @apply bg-red-100 text-red-800; }
+.tab {
+  @apply px-4 py-2 rounded-lg;
+}
+.tab-active {
+  @apply bg-gray-900 text-white;
+}
+.tab-inactive {
+  @apply bg-gray-100 text-gray-700;
+}
+textarea.codegen {
+  @apply w-full min-h-[320px] rounded-xl border p-4;
+}
