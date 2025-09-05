@@ -299,7 +299,15 @@ const topicsList = Array.isArray(data?.topics) ? data.topics : [];
   </div>
 )}
 
-        </section>
+        
+{/* Schema Tab */}
+{activeTab === "schema" && (
+  <div className="rounded-2xl border p-4 mt-4">
+    <h2 className="text-lg font-semibold mb-3">Schema Generator</h2>
+    <SchemaInline />
+  </div>
+)}
+</section>
       )}
     </div>
   );
