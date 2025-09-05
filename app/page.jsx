@@ -251,7 +251,7 @@ const topicsList = Array.isArray(data?.topics) ? data.topics : [];
                     <select className="rounded-xl border p-3" value={genType} onChange={e=>setGenType(e.target.value)}
 
 
-{/* SCHEMA TAB PANE */}
+{/* SCHEMA PANE FINAL */}
 {activeTab === "schema" && (
   <div className="rounded-2xl border p-4 mt-4">
     <h2 className="text-lg font-semibold mb-3">Schema Generator</h2>
