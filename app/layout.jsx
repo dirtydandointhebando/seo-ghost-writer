@@ -1,4 +1,5 @@
 import "./globals.css";
+import Script from "next/script";
 import CopyHijack from "@/app/components/CopyHijack";
 import CopyToast from "@/app/components/CopyToast";
 import FloatingCopy from "@/app/components/FloatingCopy";
