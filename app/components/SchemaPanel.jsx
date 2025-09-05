@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
 
-function csv(str){return (str||"").split(/\s*,\s*/).filter(Boolean)}
-function clean(o){return Object.fromEntries(Object.entries(o).filter(([_,v])=>!(v===""||v==null||(Array.isArray(v)&&!v.length))))}
+function csv(s){return (s||"").split(/\s*,\s*/).filter(Boolean)}
+function clean(o){return Object.fromEntries(Object.entries(o).filter(([,v])=>!(v===""||v==null||(Array.isArray(v)&&!v.length))))}
 
 function buildFAQ({url, faqText}){
   const items=(faqText||"").split(/\n{2,}/).map(b=>{
@@ -12,8 +12,7 @@ function buildFAQ({url, faqText}){
     return q&&a?{ "@type":"Question", name:q, acceptedAnswer:{ "@type":"Answer", text:a }}:null;
   }).filter(Boolean);
   const s={ "@context":"https://schema.org", "@type":"FAQPage", mainEntity:items };
-  if(url) s.url=url;
-  return s;
+  if(url) s.url=url; return s;
 }
 
 function buildArticle({headline,url,author,image,keywords,about}){
@@ -29,14 +28,14 @@ function buildBusiness(p){
   const type=p.businessType||"LocalBusiness";
   const address=clean({
     "@type":"PostalAddress",
-    streetAddress:p.street, addressLocality:p.locality, addressRegion:p.region,
-    postalCode:p.postalCode, addressCountry:p.country
+    streetAddress:p.street,addressLocality:p.locality,addressRegion:p.region,
+    postalCode:p.postalCode,addressCountry:p.country
   });
   const s=clean({
     "@context":"https://schema.org","@type":type,name:p.name,url:p.url,
     telephone:p.telephone,email:p.email,description:p.description,priceRange:p.priceRange,
     areaServed:p.areaServed,image:p.image,logo:p.logo,address,
-    openingHours:p.hours, sameAs: csv(p.sameAs)
+    openingHours:p.hours,sameAs:csv(p.sameAs)
   });
   if(p.latitude && p.longitude){
     s.geo={ "@type":"GeoCoordinates", latitude:Number(p.latitude), longitude:Number(p.longitude) };
@@ -48,7 +47,6 @@ export default function SchemaPanel(){
   const [mode,setMode]=useState("business");
   const [out,setOut]=useState("");
 
-  // shared
   const [url,setUrl]=useState("");
 
   // business
@@ -95,7 +93,9 @@ export default function SchemaPanel(){
         <div className="grid gap-3">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <select className="rounded-xl border p-2" value={businessType} onChange={e=>setBusinessType(e.target.value)}>
-              {["LocalBusiness","ProfessionalService","LegalService","HomeAndConstructionBusiness","MedicalBusiness","Store","Restaurant","FinancialService","AutomotiveBusiness","HealthAndBeautyBusiness"].map(t=>(<option key={t} value={t}>{t}</option>))}
+              {["LocalBusiness","ProfessionalService","LegalService","HomeAndConstructionBusiness","MedicalBusiness","Store","Restaurant","FinancialService","AutomotiveBusiness","HealthAndBeautyBusiness"].map(t=>(
+                <option key={t} value={t}>{t}</option>
+              ))}
             </select>
             <input className="rounded-xl border p-2" placeholder="Business Name" value={name} onChange={e=>setName(e.target.value)} />
             <input className="rounded-xl border p-2" placeholder="Phone (e.g., +1-555-555-5555)" value={telephone} onChange={e=>setTelephone(e.target.value)} />
