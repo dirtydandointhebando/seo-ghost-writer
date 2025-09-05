@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { buildRecommendations as buildRecs } from "@/lib/recommendations";
 
 // Build a flexible list of SEO recs from the audit
 function buildRecommendations(audit) {
@@ -194,9 +195,7 @@ const topicsList = Array.isArray(data?.topics) ? data.topics : [];
               </div>
               <div className="space-y-2">
   <h3 className="font-semibold text-base">Recommendations</h3>
-  <ul className="list-disc ml-5 text-sm text-gray-700 space-y-1">
-    {buildRecommendations(data.audit).map((r, i) => (<li key={i}>{r}</li>))}
-  </ul>
+  <ul className="list-disc ml-5 text-sm text-gray-700 space-y-1">{buildRecs(data.audit, about).map((r, i) => (<li key={i}><span className="font-medium">{r.rec}</span> <span className="text-gray-600">— {r.why}</span></li>))}</ul>
 </div>
             </div>
           )}
