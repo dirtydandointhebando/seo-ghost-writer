@@ -2,6 +2,29 @@
 
 import { useState } from "react";
 
+// Build a flexible list of SEO recs from the audit
+function buildRecommendations(audit) {
+  if (!audit) return [];
+  const recs = [];
+  // Meta & Head
+  if (!audit.meta.titleFound) recs.push("Add a unique, descriptive <title> (about 50–60 characters).");
+  else recs.push("Review <title> length/uniqueness across the site.");
+  if (!audit.meta.descriptionFound) recs.push("Write a unique meta description (~155 characters) that matches searcher intent.");
+  if (!audit.meta.canonicalFound) recs.push("Add a canonical link to prevent duplicate-content issues.");
+  // Headings
+  if (audit.headings.h1Count !== 1) recs.push("Use exactly one H1 per page (you have " + audit.headings.h1Count + ").");
+  if (audit.headings.h2Count === 0) recs.push("Add H2 sections to structure content and target subtopics.");
+  // Images
+  if (audit.images.missingAlt > 0) recs.push(`Add alt text to  image(s) without descriptive alt.`);
+  // Robots/Indexing
+  if (audit.robots.metaNoindex) recs.push("Remove the noindex robots meta tag if this page should rank.");
+  if (!audit.robots.robotsTxtFound) recs.push("Ensure a robots.txt exists and permits crawling of important paths.");
+  // Schema
+  if (!audit.schema.jsonldFound) recs.push("Add JSON-LD schema (e.g., Article / LocalBusiness / FAQ) where appropriate.");
+  return recs;
+}
+
+
 export default function Home() {
   const [url, setUrl] = useState("");
   const [keywords, setKeywords] = useState("");
@@ -165,7 +188,12 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <p className="text-sm text-gray-600">Tip: Aim for exactly one H1, a unique meta description, and alt text for all meaningful images.</p>
+              <div className="space-y-2">
+  <h3 className="font-semibold text-base">Recommendations</h3>
+  <ul className="list-disc ml-5 text-sm text-gray-700 space-y-1">
+    {buildRecommendations(data.audit).map((r, i) => (<li key={i}>{r}</li>))}
+  </ul>
+</div>
             </div>
           )}
 
