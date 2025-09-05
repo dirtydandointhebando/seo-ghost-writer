@@ -1,4 +1,5 @@
 import "./globals.css";
+import CopyToast from "@/app/components/CopyToast";
 import FloatingCopy from "@/app/components/FloatingCopy";
 export const metadata = {
   title: "SEO Content Planner – MVP",
