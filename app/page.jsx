@@ -245,13 +245,7 @@ const topicsList = Array.isArray(data?.topics) ? data.topics : [];
             <div className="space-y-4">
               <h2 className="font-semibold text-lg">Content Generator</h2>
               {!genTopic && <p className="text-sm text-gray-600">Pick a topic in the Topics tab to start.</p>}
-{activeTab === 'schema' && (
-  <div className="rounded-2xl border p-4 mt-4">
-    <h2 className="text-lg font-semibold mb-3">Schema Generator</h2>
-    <SchemaPanel />
-  </div>
-)}
-              {genTopic && (
+{genTopic && (
                 <div className="space-y-3">
                   <div className="grid md:grid-cols-4 gap-3">
                     <select className="rounded-xl border p-3" value={genType} onChange={e=>setGenType(e.target.value)}>
@@ -438,13 +432,7 @@ function SchemaInline() {
         <button onClick={generate} className="rounded-xl border px-4 py-2">Generate Schema</button>
         {out && <button onClick={()=>navigator.clipboard.writeText(out).catch(()=>{})}
 
-{activeTab === "schema" && (
-  <div className="rounded-2xl border p-4 mt-4">
-    <h2 className="text-lg font-semibold mb-3">Schema Generator</h2>
-    <SchemaInline />
-  </div>
-)}
- className="rounded-xl border px-4 py-2">Copy</button>}
+className="rounded-xl border px-4 py-2">Copy</button>}
       </div>
 
       {out && <pre className="rounded-xl border p-3 overflow-auto text-sm whitespace-pre-wrap">{out}</pre>}
@@ -452,3 +440,13 @@ function SchemaInline() {
   );
 }
 // --- end inline Schema generator
+
+
+{/* SCHEMA TAB PANE */}
+{activeTab === "schema" && (
+  <div className="rounded-2xl border p-4 mt-4">
+    <h2 className="text-lg font-semibold mb-3">Schema Generator</h2>
+    <SchemaInline />
+  </div>
+)}
+
