@@ -258,3 +258,28 @@ button.tab.tab-active{
     0 0 0 2px var(--hot-pink),
     0 0 18px rgba(255,77,166,.25);
 }
+
+/* === PAGE VS PANEL (better dark/synthwave) === */
+:root,
+:root[data-theme="light"]{
+  --page:   #f8fafc;  /* overall page bg */
+  --panel:  #ffffff;  /* cards/panels */
+}
+:root[data-theme="dark"]{
+  /* make the whole page match the container tone you liked */
+  --page:  #0f141b;   /* page background */
+  --panel: #151b24;   /* cards: slightly lighter for contrast */
+}
+:root[data-theme="synthwave"]{
+  --page:  #0b1322;   /* page background */
+  --panel: #121b2d;   /* cards: slightly lighter; still moody */
+}
+
+/* apply page bg everywhere */
+html, body { background: var(--page); }
+
+/* cards use panel color (higher contrast than page) */
+.card{
+  background: var(--panel);
+  border: 1px solid var(--border);
+}
