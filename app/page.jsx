@@ -116,10 +116,3 @@ const topicsList = Array.isArray(data?.topics) ? data.topics : [];
 }
 
 
-{/* SCHEMA_PANEL_INJECTED */}
-{(() => {
-  try {
-    const t = (typeof activeTab !== 'undefined' ? activeTab : (typeof tab !== 'undefined' ? tab : null));
-    return t === 'schema' ? <div className="mt-6"><SchemaPanel /></div> : null;
-  } catch { return null; }
-})()}
