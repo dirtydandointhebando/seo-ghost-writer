@@ -154,3 +154,46 @@ html, body { background: var(--bg); color: var(--text); }
   border-color: transparent;
 }
 /* ===== END: READABILITY TWEAKS ===== */
+/* === TRUE DARK CANVAS v4 === */
+/* Page canvas should always be the theme bg */
+html, body, main { background: var(--bg) !important; color: var(--text); }
+
+/* Stronger token set (keeps cards/inputs dark) */
+:root[data-theme="dark"] {
+  --bg:#0b0e11; --surface:#0f1318; --surface-strong:#0b0f14;
+  --text:#e7edf2; --muted:#a7b0bd; --border:#202731;
+  --accent:#60a5fa; --accent-contrast:#081018; --chip:#17202a;
+}
+:root[data-theme="synthwave"] {
+  --bg:#090d13; --surface:#0e121a; --surface-strong:#0a0f18;
+  --text:#e8f1f2; --muted:#b7c7d3; --border:#1e2633;
+  --accent:#14fff7; --accent-contrast:#081018; --chip:#0f1c23;
+}
+
+/* Cards, tabs, inputs honor tokens */
+.card{background:var(--surface);border-color:var(--border);color:var(--text);}
+.tab{background:var(--surface);border-color:var(--border);color:var(--muted);}
+.tab-active{background:var(--surface-strong);color:var(--text);}
+.card input,.card textarea,.card select{background:var(--surface);color:var(--text);border-color:var(--border);}
+.card input::placeholder,.card textarea::placeholder{color:var(--muted);opacity:.9;}
+
+/* Nuke leftover light utilities in dark themes */
+:root[data-theme="dark"] .bg-white,
+:root[data-theme="dark"] .bg-gray-50,
+:root[data-theme="dark"] .bg-slate-50,
+:root[data-theme="dark"] .bg-neutral-50,
+:root[data-theme="synthwave"] .bg-white,
+:root[data-theme="synthwave"] .bg-gray-50,
+:root[data-theme="synthwave"] .bg-slate-50,
+:root[data-theme="synthwave"] .bg-neutral-50{background-color:var(--surface) !important; color:var(--text) !important;}
+
+/* And overly-dark text utilities */
+:root[data-theme="dark"] .text-black,
+:root[data-theme="dark"] .text-gray-900,
+:root[data-theme="synthwave"] .text-black,
+:root[data-theme="synthwave"] .text-gray-900{color:var(--text) !important;}
+
+/* Primary buttons still pop, with a Synthwave glow */
+.btn-primary{background:var(--accent);color:var(--accent-contrast);}
+[data-theme="synthwave"] .glow{box-shadow:0 0 0 1px var(--border),0 0 22px rgba(20,255,247,.25),0 0 8px rgba(255,77,157,.2);border-color:transparent;}
+/* === /TRUE DARK CANVAS v4 === */
