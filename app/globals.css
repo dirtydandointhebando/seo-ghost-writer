@@ -347,3 +347,36 @@ html, body { background: var(--page); }
 :root[data-theme="synthwave"] .badge{
   border-color:var(--border);
 }
+
+/* === Badge theme tokens + variants === */
+:root, :root[data-theme="light"] {
+  --badge-ok-bg:#dcfce7;   --badge-ok-fg:#166534;
+  --badge-warn-bg:#fef3c7; --badge-warn-fg:#92400e;
+  --badge-bad-bg:#fee2e2;  --badge-bad-fg:#991b1b;
+  --badge-neutral-bg:#eef2ff; --badge-neutral-fg:#0f172a;
+}
+:root[data-theme="dark"] {
+  --badge-ok-bg:#064e3b;   --badge-ok-fg:#a7f3d0;
+  --badge-warn-bg:#78350f; --badge-warn-fg:#fde68a;
+  --badge-bad-bg:#7f1d1d;  --badge-bad-fg:#fca5a5;
+  --badge-neutral-bg:#1f2937; --badge-neutral-fg:#e5e7eb;
+}
+:root[data-theme="synthwave"] {
+  --badge-ok-bg:#0b3b34;   --badge-ok-fg:#9fffea;
+  --badge-warn-bg:#5a2a00; --badge-warn-fg:#ffd38a;
+  --badge-bad-bg:#5a0f1c;  --badge-bad-fg:#ff9db5;
+  --badge-neutral-bg:#1b2330; --badge-neutral-fg:#e3e8f3;
+}
+
+.badge{
+  border-radius:9999px;
+  padding:0.25rem 0.625rem;
+  font-size:0.875rem; line-height:1.25rem;
+  border:1px solid var(--border);
+  background:var(--badge-neutral-bg);
+  color:var(--badge-neutral-fg);
+}
+.badge-ok   { background:var(--badge-ok-bg);   color:var(--badge-ok-fg);   border-color:transparent; }
+.badge-warn { background:var(--badge-warn-bg); color:var(--badge-warn-fg); border-color:transparent; }
+.badge-bad  { background:var(--badge-bad-bg);  color:var(--badge-bad-fg);  border-color:transparent; }
+/* === end === */
