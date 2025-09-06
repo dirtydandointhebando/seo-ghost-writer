@@ -283,3 +283,42 @@ html, body { background: var(--page); }
   background: var(--panel);
   border: 1px solid var(--border);
 }
+
+/* === TAB FIXES (override older rules) === */
+.tab{
+  background: var(--surface);
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+.tab-active{
+  background: var(--tab-active-bg, var(--surface));
+  color: var(--tab-active-fg, var(--text));
+  border-color: var(--tab-active-border, var(--border));
+}
+
+/* Light: accent-filled active */
+:root[data-theme="light"]{
+  --tab-active-bg: var(--accent);
+  --tab-active-fg: var(--accent-contrast);
+  --tab-active-border: var(--accent);
+}
+
+/* Dark: filled panel + accent border */
+:root[data-theme="dark"]{
+  --tab-active-bg: var(--panel);
+  --tab-active-fg: var(--text);
+  --tab-active-border: var(--accent);
+}
+
+/* Synthwave: filled panel + hot-pink outline/glow */
+:root[data-theme="synthwave"]{
+  --tab-active-bg: var(--panel);
+  --tab-active-fg: var(--text);
+  --tab-active-border: #ff3ea5;
+}
+[data-theme="dark"] .tab-active { box-shadow: 0 0 0 1px var(--tab-active-border); }
+[data-theme="synthwave"] .tab-active {
+  box-shadow:
+    0 0 0 2px #ff3ea5,
+    0 0 24px rgba(255,62,165,0.25);
+}
