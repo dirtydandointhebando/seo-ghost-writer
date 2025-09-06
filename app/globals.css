@@ -322,3 +322,10 @@ html, body { background: var(--page); }
     0 0 0 2px #ff3ea5,
     0 0 24px rgba(255,62,165,0.25);
 }
+
+/* === Emergency: make active tab text readable everywhere === */
+.tab.tab-active, .tab-active { color: #fff !important; }
+:root[data-theme="light"] .tab.tab-active,
+:root[data-theme="light"] .tab-active { color: var(--accent-contrast) !important; }
+/* (optional) if active tab contains muted text spans, force them up a bit */
+.tab-active .text-gray-600, .tab-active .text-gray-500 { color: #fff !important; }
