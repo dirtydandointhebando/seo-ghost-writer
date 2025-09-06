@@ -88,3 +88,69 @@ html, body { background: var(--bg); color: var(--text); }
   border-color: transparent;
 }
 /* ===== END THEME TOKENS ===== */
+
+/* ===== THEME READABILITY TWEAKS v2 ===== */
+/* Stronger contrasts + themed inputs + better active tab styling */
+
+:root {
+  /* used for active tabs/buttons in light mode */
+  --surface-strong: #111827;       /* gray-900 */
+  --text-on-strong: #ffffff;
+}
+
+:root[data-theme="dark"] {
+  --bg: #0b0e11;                   /* page */
+  --surface: #111418;              /* cards/fields */
+  --surface-strong: #0d1117;       /* active tab/button */
+  --text: #e5e7eb;                 /* base text */
+  --muted: #a3a9b7;                /* secondary text */
+  --border: #2a313c;               /* borders */
+  --accent: #60a5fa;               /* primary */
+  --accent-contrast: #081018;
+  --chip: #1f2937;
+  --text-on-strong: #e5e7eb;
+}
+
+:root[data-theme="synthwave"] {
+  --bg: #0a0d12;
+  --surface: #10131b;
+  --surface-strong: #0b0f1a;
+  --text: #e8f1f2;
+  --muted: #b7c7d3;
+  --border: #2a3140;
+  --accent: #14fff7;               /* neon teal */
+  --accent-contrast: #081018;
+  --chip: #11222b;                 /* subtle cyan tint */
+  --text-on-strong: #e8f1f2;
+}
+
+/* Tabs: avoid white-on-white by using the "strong" surface */
+.tab-active { background: var(--surface-strong); color: var(--text-on-strong); }
+
+/* Inputs/Textareas/Selects inside cards follow theme tokens */
+.card input,
+.card textarea,
+.card select {
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--border);
+}
+.card input::placeholder,
+.card textarea::placeholder {
+  color: var(--muted);
+  opacity: .9;
+}
+
+/* Ensure sections that used Tailwind's bg-gray-50 remain readable in dark themes */
+.card .bg-gray-50 { background-color: var(--surface) !important; }
+.card .text-gray-600 { color: var(--muted) !important; }
+
+/* Buttons that opt into tokens get a subtle glow in Synthwave */
+[data-theme="synthwave"] .glow {
+  box-shadow:
+    0 0 0 1px var(--border),
+    0 0 22px rgba(20,255,247,0.25),
+    0 0 8px rgba(255,77,157,0.2);
+  border-color: transparent;
+}
+/* ===== END: READABILITY TWEAKS ===== */
