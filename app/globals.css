@@ -197,3 +197,5 @@ html, body, main { background: var(--bg) !important; color: var(--text); }
 .btn-primary{background:var(--accent);color:var(--accent-contrast);}
 [data-theme="synthwave"] .glow{box-shadow:0 0 0 1px var(--border),0 0 22px rgba(20,255,247,.25),0 0 8px rgba(255,77,157,.2);border-color:transparent;}
 /* === /TRUE DARK CANVAS v4 === */
+/* fix: active tab should be accent, not text */
+.tab-active{background:var(--accent) !important;color:var(--accent-contrast) !important;border-color:var(--accent) !important;}
