@@ -202,3 +202,31 @@ html, body, main { background: var(--bg) !important; color: var(--text); }
   color: var(--text);
   border-color: var(--border);
 }
+
+/* === THEME FIXES: tabs + card contrast === */
+
+/* Elevated surface for the big content card */
+:root[data-theme="light"]     { --surface-elev:#ffffff; }
+:root[data-theme="dark"]      { --surface-elev:#0f141b; }   /* lighter than bg for contrast */
+:root[data-theme="synthwave"] { --surface-elev:#0b1322; --hot-pink:#ff4da6; }
+
+/* Use elevated surface for cards on all themes */
+.card{
+  background: var(--surface-elev);
+  border: 1px solid var(--border);
+}
+
+/* Force active tab to the subtle "surface-strong" pill (never near-black on Light) */
+button.tab.tab-active{
+  background: var(--surface-strong) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+
+/* Synthwave: hot-pink outline/glow on active tab */
+:root[data-theme="synthwave"] button.tab.tab-active{
+  border-color: var(--hot-pink) !important;
+  box-shadow:
+    0 0 0 2px var(--hot-pink),
+    0 0 18px rgba(255,77,166,.25);
+}
