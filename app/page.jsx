@@ -1,6 +1,9 @@
+export const dynamic = "force-dynamic";
 "use client";
 
 import { useState } from "react";
+// __STRAY_SHIMS__: prevent SSR errors if a rogue block references these
+const activeTab = undefined, tab = undefined;
 
 import SchemaPanel from "@/app/components/SchemaPanel";
 function intentLabel(i){const m={informational:"Info",comparison:"Comparison",local:"Local",cost:"Cost",transactional:"Transactional"};return m[i]||"Info"}
