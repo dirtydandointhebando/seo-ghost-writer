@@ -173,8 +173,6 @@ html, body, main { background: var(--bg) !important; color: var(--text); }
 /* Cards, tabs, inputs honor tokens */
 .card{background:var(--surface);border-color:var(--border);color:var(--text);}
 .tab{background:var(--surface);border-color:var(--border);color:var(--muted);}
-.tab-active{background:var(--surface-strong);color:var(--text);}
-.card input,.card textarea,.card select{background:var(--surface);color:var(--text);border-color:var(--border);}
 .card input::placeholder,.card textarea::placeholder{color:var(--muted);opacity:.9;}
 
 /* Nuke leftover light utilities in dark themes */
@@ -198,4 +196,9 @@ html, body, main { background: var(--bg) !important; color: var(--text); }
 [data-theme="synthwave"] .glow{box-shadow:0 0 0 1px var(--border),0 0 22px rgba(20,255,247,.25),0 0 8px rgba(255,77,157,.2);border-color:transparent;}
 /* === /TRUE DARK CANVAS v4 === */
 /* fix: active tab should be accent, not text */
-.tab-active{background:var(--accent) !important;color:var(--accent-contrast) !important;border-color:var(--accent) !important;}
+/* tabs: subtle surface-strong pill */
+.tab-active{
+  background: var(--surface-strong);
+  color: var(--text);
+  border-color: var(--border);
+}
